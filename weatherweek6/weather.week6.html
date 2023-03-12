@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="src/styles.css" />
+    <script
+      src="https://kit.fontawesome.com/08339ee52a.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weatherapp.week6</title>
+</head>
+<style>
+    body {
+  background: linear-gradient(
+    114deg,
+    rgb(190, 209, 238) 22%,
+    rgb(187, 213, 210) 68%
+  );
+}
+.dark.body {
+  background: linear-gradient(114deg, rgb(6, 49, 117) 22%, rgb(36, 87, 81) 68%);
+}
+
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  color: rgb(90, 90, 121);
+  background: rgb(196, 235, 240);
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px;
+  box-shadow: 7px 5px 5px rgb(67, 75, 83);
+}
+i {
+  font-size: 20pt;
+  color: rgb(85, 111, 103);
+  cursor: pointer;
+}
+
+fa-solid {
+    color:rgb(6, 49, 117);
+
+}
+.fa-solid :hover {
+    
+
+}
+.F {
+  font-size: 15pt;
+}
+.C {
+  font-size: 15pt;
+}
+
+h1 {
+  font-family: PT "Courier New", Courier, monospace;
+  font-size: 25pt;
+}
+h2 {
+  font-size: 13pt;
+  font-family: PT "Courier New", Courier, monospace;
+}
+h3 {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: bold;
+}
+form {
+  font-size: 10pt;
+}
+button {
+  font-size: 8pt;
+  font-family: Arial, Helvetica, sans-serif;
+  color: grey;
+}
+.btn {
+    color:rgb(213, 250, 247);
+    font-size: 15pt;
+}
+ul {
+  list-style-type: none;
+}
+.description {
+  font-size: 10pt;
+  right: 160px;
+  top: 60px;
+}
+
+.search {
+  border-radius: 20px;
+}
+.col {
+  text-align: center;
+}
+footer {
+  text-align: left;
+  font-size: 6pt;
+}
+
+</style>
+<body>
+    <div class="container">
+        <i class="fa-solid fa-toggle-on" id="toggle"></i>
+        <h1>⛅<span class="temperature" id="temperature"></span>°C</h1>
+        <h2 id="description">(mostly sunny)</h2>
+        <h3></h3>
+        <h4>
+          <form class="search" id="search-form">
+            <input type="search" placeholder="Search city here" id="city-input" />
+            <input type="submit" />
+          </form>
+        </h4>
+        <i class="fa-solid fa-location-dot"></i>
+        <h5 id="city"></h5>
+        <button id="current-location-button" class="btn btn-success w-100">
+          current city
+        </button>
+  
+        <div id="date"></div>
+  
+        <ul class="description" id="properties">
+          <li>Humidity <span id="humidity"></span> %</li>
+          <li>Wind <span id="wind"></span> mph</li>
+        </ul>
+  
+        <div class="row">
+          <div class="col">
+            <strong>Sunday </strong><br />
+            🌦️<br />
+            28°/18°
+          </div>
+          <div class="col">
+            <strong>Monday</strong> <br />
+            🌨️<br />
+            31°/25°
+          </div>
+          <div class="col">
+            <strong>Tuesday</strong> <br />
+            🌨️ <br />
+            36/25°
+          </div>
+          <div class="col">
+            <strong> Wednesday </strong><br />
+            ⛅<br />
+            41°/31°
+          </div>
+          <div class="col">
+            <strong>Thursday</strong><br />
+            🌨️ <br />
+            45°/36°
+          </div>
+          <br />
+          <br />
+          <footer>Coded by Minna Randolph,(a work in progress)</footer>
+        </div>
+      </div>
+      <script>
+        //toggle for dark/ light mode <i> (for later)
+
+// F° and C° temperatures (apply to
+//<h1> span=class"C" and "F")
+
+//1) display current date and time (<h3> inner.HTML)
+function formatDate(timestamp) {
+  let now = new Date(timestamp);
+  let h3 = document.querySelector("h3");
+  let date = now.getDate();
+  let hour = now.getHours();
+  let minutes = now.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  let year = now.getFullYear();
+
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+  let day = days[now.getDay()];
+
+  let months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
+  let month = months[now.getMonth()];
+  h3.innerHTML = `${day}, ${month} ${date}, ${year}, ${hour}:${minutes}`;
+}
+//formatDate(newDate());
+
+//(2)search bar to display the current city <h4> as
+// <h5> to display the new city
+
+function displayWeatherCondition(response) {
+  document.querySelector("#city").innerHTML = response.data.name;
+  //h5.innerHTML = `${city}`;
+  document.querySelector("#temperature").innerHTML = Math.round(
+    response.data.main.temp
+  );
+
+  document.querySelector("#humidity").innerHTML = response.data.main.humidity;
+  document.querySelector("#wind").innerHTML = Math.round(
+    response.data.wind.speed
+  );
+  document.querySelector("#description").innerHTML =
+    response.data.weather[0].main;
+}
+
+function searchCity(city) {
+  let apiKey = "2ffdfb8d8d8b00d2858bb969032d4f11";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayWeatherCondition);
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let city = document.querySelector("#city-input").value;
+  searchCity(city);
+}
+
+function searchLocation(position) {
+  let apiKey = "2ffdfb8d8d8b00d2858bb969032d4f11";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayWeatherCondition);
+}
+
+function getCurrentLocation(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(searchLocation);
+}
+//make an api call, display city name and temperature
+//get api key , get the URL
+//we want to allow the user to search any city
+
+//In your project, when a user searches for a city (example: New York),
+// it should display the name of the city on the result page and the current temperature of the city.
+//Please note: there's no need to include a temperature conversion at the moment. This will be taught later on in the course.
+// Bonus point:
+//Add a Current Location button. When clicking on it, it uses the Geolocation API to get your GPS coordinates and display and the city and current temperature using the OpenWeather API.
+//formatDate(newDate());
+let dateElement = document.querySelector("#date");
+let currentTime = new Date();
+dateElement.innerHTML = formatDate(currentTime);
+
+let searchForm = document.querySelector("#search-form");
+searchForm.addEventListener("submit", handleSubmit);
+
+let currentLocationButton = document.querySelector("#current-location-button");
+currentLocationButton.addEventListener("click", getCurrentLocation);
+searchCity("New York");
+</script>
+    
+</body>
+</html>

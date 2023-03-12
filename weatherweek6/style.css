@@ -1,0 +1,85 @@
+body {
+    background: linear-gradient(
+      114deg,
+      rgb(190, 209, 238) 22%,
+      rgb(187, 213, 210) 68%
+    );
+  }
+  .dark.body {
+    background: linear-gradient(114deg, rgb(6, 49, 117) 22%, rgb(36, 87, 81) 68%);
+  }
+  
+  .container {
+    max-width: 500px;
+    margin: 40px auto;
+    color: rgb(90, 90, 125);
+    background: rgb(196, 235, 240);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px;
+    box-shadow: 7px 5px 5px rgb(67, 75, 83);
+  }
+  i {
+    font-size: 20pt;
+    color: rgb(85, 111, 103);
+    cursor: pointer;
+  }
+  
+  fa-solid {
+      color:rgb(6, 49, 117);
+  
+  }
+  .fa-solid :hover {
+      
+  
+  }
+  .F {
+    font-size: 15pt;
+  }
+  .C {
+    font-size: 15pt;
+  }
+  
+  h1 {
+    font-family: PT "Courier New", Courier, monospace;
+    font-size: 25pt;
+  }
+  h2 {
+    font-size: 13pt;
+    font-family: PT "Courier New", Courier, monospace;
+  }
+  h3 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-weight: bold;
+  }
+  form {
+    font-size: 10pt;
+  }
+  button {
+    font-size: 8pt;
+    font-family: Arial, Helvetica, sans-serif;
+    color: grey;
+  }
+  .btn {
+      color:rgb(213, 250, 247);
+      font-size: 15pt;
+  }
+  ul {
+    list-style-type: none;
+  }
+  .description {
+    font-size: 10pt;
+    right: 160px;
+    top: 60px;
+  }
+  
+  .search {
+    border-radius: 20px;
+  }
+  .col {
+    text-align: center;
+  }
+  footer {
+    text-align: left;
+    font-size: 6pt;
+  }
